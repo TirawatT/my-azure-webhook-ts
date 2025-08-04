@@ -18,7 +18,8 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error parsing request body as JSON:", error);
     return NextResponse.json(
-      { message: "Invalid JSON payload.", error: error.message },
+      // { message: "Invalid JSON payload.", error: error.message },
+      { message: "Invalid JSON payload.", error },
       { status: 400 }
     );
   }
@@ -136,7 +137,13 @@ export async function POST(request: NextRequest) {
 
 // --- Helper function สำหรับส่งอีเมล ---
 // คุณต้องตั้งค่า Environment Variables สำหรับผู้ให้บริการอีเมลของคุณ
-async function sendEmailNotification({ subject, body }) {
+async function sendEmailNotification({
+  subject,
+  body,
+}: {
+  subject: string;
+  body: string;
+}) {
   // const transporter = nodemailer.createTransport({
   //   host: process.env.EMAIL_HOST,
   //   port: parseInt(process.env.EMAIL_PORT || "587"),
@@ -169,7 +176,8 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching alerts from database:", error);
     return NextResponse.json(
-      { message: "Failed to fetch alerts.", error: error.message },
+      // { message: "Failed to fetch alerts.", error: error.message },
+      { message: "Failed to fetch alerts.", error },
       { status: 500 }
     );
   }
